@@ -19,17 +19,27 @@ function App() {
         const name = form.name.value;
         const email = form.email.value;
         
-        const user ={name, email}
+        const user ={name, email};
+        console.log(user)
 
       //  post data on the server side
       fetch('http://localhost:5000/users',{
         method: 'POST',
         headers:{
-          'content-type': 'application/json'
+          'content-type' : "application/json"
         },
-        body: JSON.stringify(user)
+        body:JSON.stringify(user)
+      } )
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
 
-       })
+        const newUsers =[...users, data]
+        setUsers(newUsers)
+
+
+        form.reset()
+      })
        
         
  }
@@ -61,7 +71,7 @@ function App() {
          <input type="email" name='email' placeholder="email" className="input input-bordered" required />
        </div>
        <div className="form-control mt-6">
-         <button type='submit' className="btn btn-primary">Submit</button>
+         <button  type='submit' className="btn btn-primary">Submit</button>
        </div>
      </form>
    </div>
